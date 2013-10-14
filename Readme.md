@@ -2,7 +2,7 @@
 # thunkify
 
   Turn a regular node function into one which returns a thunk,
-  useful for generator-based flow control.
+  useful for generator-based flow control such as [co](https://github.com/visionmedia/co).
 
 ## Installation
 
