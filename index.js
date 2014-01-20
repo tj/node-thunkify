@@ -13,9 +13,11 @@ module.exports = thunkify;
  * @api public
  */
 
+var arr_cast = Array.prototype.slice;
+
 function thunkify(fn){
   return function(){
-    var args = [].slice.call(arguments);
+    var args = arr_cast.call(arguments);
     var results;
     var called;
     var cb;
