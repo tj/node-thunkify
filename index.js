@@ -13,7 +13,7 @@ module.exports = thunkify;
  * @api public
  */
 
-function thunkify(fn){
+function thunkify(fn, ctx){
   return function(){
     var args = [].slice.call(arguments);
     var results;
@@ -29,7 +29,7 @@ function thunkify(fn){
       }
     });
 
-    fn.apply(this, args);
+    fn.apply(ctx || this, args);
 
     return function(fn){
       cb = fn;
