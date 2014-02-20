@@ -1,4 +1,3 @@
-
 # thunkify
 
   Turn a regular node function into one which returns a thunk,
@@ -16,9 +15,9 @@ $ npm install thunkify
 var thunkify = require('thunkify');
 var fs = require('fs');
 
-fs.readFile = thunkify(fs.readFile);
+var read = thunkify(fs.readFile);
 
-fs.readFile('package.json', 'utf8')(function(err, str){
+read('package.json', 'utf8')(function(err, str){
   
 });
 ```
