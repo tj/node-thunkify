@@ -65,4 +65,15 @@ describe('thunkify(fn)', function(){
       });
     });
   })
+
+  it('should work with a ctx', function (done) {
+    var ctx = { value: 1 };
+    var fn = thunkify(function (a, fn) {
+      fn(a + this.value);
+    }, ctx);
+    fn(1)(function (val) {
+      assert(val, 2);
+      done();
+    });
+  });
 })
