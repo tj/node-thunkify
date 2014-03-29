@@ -1,4 +1,3 @@
-
 /**
  * Expose `thunkify()`.
  */
@@ -17,27 +16,24 @@ function thunkify(fn){
   return function(){
     var args = [].slice.call(arguments);
     var results;
-    var called;
     var cb;
+
+    function callback(){
+      if (results && cb) {
+        cb.apply(this, results);
+      }
+    }
 
     args.push(function(){
       results = arguments;
-
-      if (cb && !called) {
-        called = true;
-        cb.apply(this, results);
-      }
+      callback.apply(this);
     });
 
     fn.apply(this, args);
 
     return function(fn){
       cb = fn;
-
-      if (results && !called) {
-        called = true;
-        fn.apply(this, results);
-      }
+      callback.apply(this);
     }
   }
 };
