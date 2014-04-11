@@ -1,5 +1,11 @@
 
 /**
+ * Module dependencies.
+ */
+
+var assert = require('assert');
+
+/**
  * Expose `thunkify()`.
  */
 
@@ -14,6 +20,8 @@ module.exports = thunkify;
  */
 
 function thunkify(fn){
+  assert('function' == typeof fn, 'function required');
+
   return function(){
     var args = [].slice.call(arguments);
     var results;
