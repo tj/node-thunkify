@@ -1,13 +1,13 @@
 {
   "name": "thunkify",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": "visionmedia/node-thunkify",
   "description": "Turn callbacks, arrays, generators, generator functions, and promises into a thunk",
   "keywords": ["thunk", "co", "generator", "generators", "promise"],
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "should": "*"  
+    "should": "*"
   },
   "license": "MIT"
 }
