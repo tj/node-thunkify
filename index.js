@@ -45,7 +45,11 @@ function thunkify(fn){
         done.apply(null, res);
       });
 
-      fn.apply(ctx, args);
+      try {
+        fn.apply(ctx, args);
+      } catch (err) {
+        done(err);
+      }
     }
   }
 };

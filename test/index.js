@@ -51,6 +51,20 @@ describe('thunkify(fn)', function(){
     });
   })
 
+  it('should catch errors', function(done){
+    function load(fn) {
+      throw new Error('boom');
+    }
+
+    load = thunkify(load);
+
+    load()(function(err){
+      assert(err);
+      assert('boom' == err.message);
+      done();
+    });
+  })
+
   it('should ignore multiple callbacks', function(done){
     function load(fn) {
       fn(null, 1);
