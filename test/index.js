@@ -34,6 +34,27 @@ describe('thunkify(fn)', function(){
     });
   })
 
+  it('should work with multiple calls', function(done){
+    function read(file, fn) {
+      setTimeout(function(){
+        fn(null, 'file: ' + file);
+      }, 5);
+    }
+
+    read = thunkify(read);
+
+    read('foo.txt')(function(err, res){
+      assert(!err);
+      assert('file: foo.txt' == res);
+
+      read('bar.txt')(function(err, res){
+        assert(!err);
+        assert('file: bar.txt' == res);
+        done();
+      });
+    });
+  })
+
   it('should pass all results', function(done){
     function read(file, fn) {
       setTimeout(function(){
@@ -53,7 +74,7 @@ describe('thunkify(fn)', function(){
 
   it('should work with node methods', function(done){
     fs.readFile = thunkify(fs.readFile);
-    
+
     fs.readFile('package.json')(function(err, buf){
       assert(!err);
       assert(Buffer.isBuffer(buf));
