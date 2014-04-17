@@ -51,6 +51,18 @@ describe('thunkify(fn)', function(){
     });
   })
 
+  it('should ignore multiple callbacks', function(done){
+    function load(fn) {
+      fn(null, 1);
+      fn(null, 2);
+      fn(null, 3);
+    }
+
+    load = thunkify(load);
+
+    load()(done);
+  })
+
   it('should work with multiple calls', function(done){
     function read(file, fn) {
       setTimeout(function(){

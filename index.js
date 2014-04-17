@@ -31,9 +31,15 @@ function thunkify(fn){
   return function(){
     var args = slice.call(arguments);
     var ctx = this;
+    var called;
 
     return function(done){
-      args.push(done);
+      args.push(function(){
+        if (called) return;
+        called = true;
+        done.apply(null, arguments);
+      });
+
       fn.apply(ctx, args);
     }
   }
