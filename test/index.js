@@ -34,6 +34,23 @@ describe('thunkify(fn)', function(){
     });
   })
 
+  it('should maintain the receiver', function(done){
+    function load(fn) {
+      fn(null, this.name);
+    }
+
+    var user = {
+      name: 'tobi',
+      load: thunkify(load)
+    };
+
+    user.load()(function(err, name){
+      if (err) return done(err);
+      assert('tobi' == name);
+      done();
+    });
+  })
+
   it('should work with multiple calls', function(done){
     function read(file, fn) {
       setTimeout(function(){
