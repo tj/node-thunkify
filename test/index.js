@@ -77,32 +77,6 @@ describe('thunkify(fn)', function(){
     load()(done);
   })
 
-  it('should work with multiple calls', function(done){
-    var n = 0;
-
-    function read(file, fn) {
-      setTimeout(function(){
-        ++n;
-        fn(null, 'file: ' + file);
-      }, 5);
-    }
-
-    read = thunkify(read);
-    read = read('foo.txt');
-
-    read(function(err, res){
-      assert(!err);
-      assert('file: foo.txt' == res);
-
-      read(function(err, res){
-        assert(!err);
-        assert('file: foo.txt' == res);
-        assert(1 == n);
-        done();
-      });
-    });
-  })
-
   it('should pass all results', function(done){
     function read(file, fn) {
       setTimeout(function(){
