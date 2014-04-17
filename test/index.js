@@ -64,21 +64,26 @@ describe('thunkify(fn)', function(){
   })
 
   it('should work with multiple calls', function(done){
+    var n = 0;
+
     function read(file, fn) {
       setTimeout(function(){
+        ++n;
         fn(null, 'file: ' + file);
       }, 5);
     }
 
     read = thunkify(read);
+    read = read('foo.txt');
 
-    read('foo.txt')(function(err, res){
+    read(function(err, res){
       assert(!err);
       assert('file: foo.txt' == res);
 
-      read('bar.txt')(function(err, res){
+      read(function(err, res){
         assert(!err);
-        assert('file: bar.txt' == res);
+        assert('file: foo.txt' == res);
+        assert(1 == n);
         done();
       });
     });

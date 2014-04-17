@@ -31,13 +31,18 @@ function thunkify(fn){
   return function(){
     var args = slice.call(arguments);
     var ctx = this;
-    var called;
+    var res;
 
     return function(done){
+      var called;
+
+      if (res) return done.apply(null, res);
+
       args.push(function(){
         if (called) return;
         called = true;
-        done.apply(null, arguments);
+        res = arguments;
+        done.apply(null, res);
       });
 
       fn.apply(ctx, args);
