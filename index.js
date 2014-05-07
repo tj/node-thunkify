@@ -12,12 +12,6 @@ var assert = require('assert');
 module.exports = thunkify;
 
 /**
- * Slice reference.
- */
-
-var slice = [].slice;
-
-/**
  * Wrap a regular callback `fn` as a thunk.
  *
  * @param {Function} fn
@@ -29,7 +23,10 @@ function thunkify(fn){
   assert('function' == typeof fn, 'function required');
 
   return function(){
-    var args = slice.call(arguments);
+    var args = new Array(arguments.length);
+    for(var i = 0; i < args.length; ++i) {
+      args[i] = arguments[i];
+    }
     var ctx = this;
 
     return function(done){
