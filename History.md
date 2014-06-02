@@ -1,4 +1,9 @@
 
+2.1.2 / 2014-06-02
+==================
+
+ * fix: make this an optimizable function with crankshaft
+
 2.1.1 / 2014-04-17
 ==================
 
