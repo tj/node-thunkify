@@ -39,11 +39,13 @@ function thunkify(fn){
         done.apply(null, arguments);
       });
 
-      try {
-        fn.apply(ctx, args);
-      } catch (err) {
-        done(err);
-      }
+      setImmediate(function() {
+        try {
+          fn.apply(ctx, args);
+        } catch (err) {
+          done(err);
+        }
+      });
     }
   }
 };
