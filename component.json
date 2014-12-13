@@ -1,7 +1,7 @@
 {
   "name": "thunkify",
   "version": "2.1.2",
-  "repo": "visionmedia/node-thunkify",
+  "repo": "tj/node-thunkify",
   "description": "Turn callbacks, arrays, generators, generator functions, and promises into a thunk",
   "keywords": ["thunk", "co", "generator", "generators", "promise"],
   "main": "index.js",
