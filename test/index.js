@@ -108,4 +108,23 @@ describe('thunkify(fn)', function(){
       });
     });
   })
+
+  it('should preserve passed context', function(done){
+    function Foo() { 
+      this.bar = 'bar';
+      this.fn = function (callback) {
+        callback(null, this.bar);
+      }
+    }
+  
+    var foo = new Foo();
+    
+    fn = thunkify(foo.fn, foo);
+
+    fn()(function (err, a) {
+      assert('bar' == a);
+      done();
+    });
+  })
+
 })

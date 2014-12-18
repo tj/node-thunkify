@@ -19,12 +19,12 @@ module.exports = thunkify;
  * @api public
  */
 
-function thunkify(fn){
+function thunkify(fn, ctx){
   assert('function' == typeof fn, 'function required');
 
   return function(){
     var args = new Array(arguments.length);
-    var ctx = this;
+    ctx || (ctx = this);
 
     for(var i = 0; i < args.length; ++i) {
       args[i] = arguments[i];
