@@ -108,4 +108,25 @@ describe('thunkify(fn)', function(){
       });
     });
   })
+
+  it('should maintain the original callback context', function(done){
+
+    function read(file, fn) {
+      var fileCtx = {
+        name: file,
+        size: 30
+      };
+
+      fn.apply(fileCtx, [null]);
+    }
+
+    read = thunkify(read);
+
+    read('foo.txt')(function (err) {
+      assert(!err);
+      assert('object' == typeof this);
+      assert('foo.txt' == this.name);
+      done();
+    });
+  })
 })
