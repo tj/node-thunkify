@@ -18,10 +18,20 @@ var fs = require('fs');
 var read = thunkify(fs.readFile);
 
 read('package.json', 'utf8')(function(err, str){
-  
+
 });
 ```
+### Or
+```js
+var thunkify = require('thunkify');
+var fs = require('fs');
 
+thunkify.addProto();
+
+read.thunkify('package.json', 'utf8')(function(err, str){
+
+});
+```
 # License
 
   MIT
