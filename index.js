@@ -3,13 +3,7 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
-
-/**
- * Expose `thunkify()`.
- */
-
-module.exports = thunkify;
+const assert = require('assert');
 
 /**
  * Wrap a regular callback `fn` as a thunk.
@@ -23,27 +17,34 @@ function thunkify(fn){
   assert('function' == typeof fn, 'function required');
 
   return function(){
-    var args = new Array(arguments.length);
-    var ctx = this;
+    let args = new Array(arguments.length);
 
-    for(var i = 0; i < args.length; ++i) {
+    for(let i = 0; i < args.length; ++i) {
       args[i] = arguments[i];
     }
 
-    return function(done){
+    return (done) => {
       var called;
 
-      args.push(function(){
-        if (called) return;
+      args.push(function() {
+        if (called) {
+          return;
+        }
         called = true;
         done.apply(null, arguments);
       });
 
       try {
-        fn.apply(ctx, args);
+        fn.apply(this, args);
       } catch (err) {
         done(err);
       }
     }
   }
 };
+
+/**
+ * Expose `thunkify()`.
+ */
+
+module.exports = thunkify;
