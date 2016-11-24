@@ -9,7 +9,23 @@ var assert = require('assert');
  * Expose `thunkify()`.
  */
 
-module.exports = thunkify;
+module.exports = function (input) {
+  var type = typeof input;
+  if (type === 'function') {
+    return thunkify(input);
+  }
+
+  if (type === 'object') {
+    for (var key in input) {
+      if (typeof input[key] === 'function') {
+        input[key] = thunkify(input[key]);
+      }
+    }
+    return input;
+  }
+
+  throw new TypeError('thunkify accept only `function` or `object`');
+};
 
 /**
  * Wrap a regular callback `fn` as a thunk.
