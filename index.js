@@ -12,6 +12,18 @@ var assert = require('assert');
 module.exports = thunkify;
 
 /**
+* export prototype method
+*/
+thunkify.addProto = function () {
+
+Object.defineProperty(Function.prototype, "thunkify", {
+  get: function () {
+    return thunkify(this);
+  }
+});
+};
+
+/**
  * Wrap a regular callback `fn` as a thunk.
  *
  * @param {Function} fn
