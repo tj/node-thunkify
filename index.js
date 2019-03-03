@@ -36,7 +36,7 @@ function thunkify(fn){
       args.push(function(){
         if (called) return;
         called = true;
-        done.apply(null, arguments);
+        done.apply(this, arguments);
       });
 
       try {
